@@ -1,5 +1,5 @@
 /*
-  Blink an External LED
+  Blink an External 12V LED Strip
 
   Behavior:
   Fades LED up and then down in brightness.
@@ -11,12 +11,9 @@
     to 5V and right lead to GND. 
   * Pin A2: Attach center lead of a potentiometer to pin A2. Attach the left lead 
     to 5V and right lead to GND. 
-  * Pin 3: R leg of RGB LED, cathode to microcontroller, 220 Ohm resistor from
-    cathode to ground
-  * Pin 5: G leg of RGB LED, cathode to microcontroller, 180 Ohm resistor from
-    cathode to ground
-  * Pin 6: B leg of RGB LED, cathode to microcontroller, 180 Ohm resistor from
-    cathode to ground
+  * Pin 3: R MOSFET Gate
+  * Pin 5: G MOSFET Gate
+  * Pin 6: B MOSFET Gate
 
    _________
   |	    |      potentiometer      
@@ -34,15 +31,22 @@
   |    	  A0|-----| (+) |      
   |  	    |     ----------|l> GND   
   |	    |
-  |         |
-  |    	    |    LED     330 Ohm
-  |    PIN 6|----(|<)----/\/\/\----|
-  |         |                      |
-  |    	    |    LED     330 Ohm   |
-  |    PIN 5|----(|<)----/\/\/\----|------| 5V
-  |	    |                      |
-  |    	    |    LED     330 Ohm   |
-  |    PIN 3|----(|<)----/\/\/\----| 
+  |         |         ____D____(LOAD)---|12V+           
+  |    	    |        /|
+  |    PIN 6|-----G--||
+  |         |        \|<--S-------------|l> GND
+  |	    |   
+  |         |         ____D____(LOAD)---|12V+           
+  |    	    |        /|
+  |    PIN 5|-----G--||
+  |         |        \|<--S-------------|l> GND
+  |	    |   
+  |    	    |   
+  |         |         ____D____(LOAD)---|12V+           
+  |    	    |        /|
+  |    PIN 3|-----G--||
+  |         |        \|<--S-------------|l> GND
+  |	    |   
   |_________|
 
   Based on Example Code included w/ Arduino 1.0.5.
@@ -50,7 +54,7 @@
  http://arduino.cc/en/Tutorial/Fading
  http://arduino.cc/en/Tutorial/PWM
 
- Adapted for an RGB LED by Carlyn Maw Apr 2014
+ Adapted for an RGB LED STRIP by Carlyn Maw Apr 2014
 
  */
 //where the led is
